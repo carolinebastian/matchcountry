@@ -8,10 +8,10 @@ match.country(
   country,
   output = "iso",
   language = "english",
-  match = read.csv(system.file("match.csv", "matchcountry"), na.strings = "",
-    stringsAsFactors = FALSE),
-  countrydata = read.csv(system.file("countrydata.csv", "matchcountry"), na.strings =
-    "", stringsAsFactors = FALSE)
+  match = read.csv(system.file("extdata", "match.csv", package = "matchcountry"),
+    na.strings = "", stringsAsFactors = FALSE),
+  countrydata = read.csv(system.file("extdata", "countrydata.csv", package =
+    "matchcountry"), na.strings = "", stringsAsFactors = FALSE)
 )
 }
 \arguments{

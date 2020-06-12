@@ -11,8 +11,8 @@
 #' download.mc()
 #' 
 #' @export
-download.mc <- function(match = "https://raw.githubusercontent.com/philbastian/matchcountry/master/match.csv", 
-                        countrydata = "https://raw.githubusercontent.com/philbastian/matchcountry/master/countrydata.csv") {
+download.mc <- function(match = "https://raw.githubusercontent.com/philbastian/matchcountry/master/inst/extdata/match.csv", 
+                        countrydata = "https://raw.githubusercontent.com/philbastian/matchcountry/master/inst/extdata/countrydata.csv") {
   
   i <- readLines(ii <- url(match), encoding = "UTF-8", warn = FALSE) 
   j <- readLines(jj <- url(countrydata), encoding = "UTF-8", warn = FALSE)
