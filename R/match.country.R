@@ -29,9 +29,9 @@
 #' @export
 
 match.country <- function(country, output = "iso", language = "english",
-                          match = read.csv(system.file("match.csv", "matchcountry"), 
+                          match = read.csv(system.file("extdata", "match.csv", package = "matchcountry"), 
                                            na.strings = "", stringsAsFactors = FALSE),
-                          countrydata = read.csv(system.file("countrydata.csv", "matchcountry"),
+                          countrydata = read.csv(system.file("extdata", "countrydata.csv", package = "matchcountry"),
                                                  na.strings = "", stringsAsFactors = FALSE)) {
   removepunctuation <- function(input) {
     replace <- c("&" = "AND", "SAINT" = "ST", "ISDS" = "ISLANDS", "REPUBLIC OF" = "")

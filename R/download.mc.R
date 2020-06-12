@@ -20,6 +20,6 @@ download.mc <- function(match = "https://raw.githubusercontent.com/philbastian/m
   close(ii)
   close(jj)
   
-  writeLines(i, system.file("match.csv", "matchcountry"))
-  writeLines(j, system.file("countrydata.csv", "matchcountry"))
+  writeLines(i, system.file("extdata", "match.csv", package = "matchcountry"))
+  writeLines(j, system.file("extdata", "countrydata.csv", package = "matchcountry"))
 }
