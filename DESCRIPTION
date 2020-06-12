@@ -1,0 +1,12 @@
+Package: matchcountry
+Title: Match Country
+Version: 0.0.0.9000
+Authors@R: person("Phillip", "Bastian", email = "pbastian@stern.nyu.edu", 
+    role = c("aut", "cre"), comment = "Research Scholar, NYU Stern")
+Description: Utility to simplify country name matching.
+License: MIT
+URL: https://www.github.com/philbastian/matchcountry
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.0
