@@ -1,6 +1,6 @@
 #' @export
 
-.onLoad <- function() {
+.onLoad <- function(libname, pkgname) {
   .mc <<- new.env(parent = emptyenv())
   read.mc()
 }
