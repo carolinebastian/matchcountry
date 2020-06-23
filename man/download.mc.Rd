@@ -12,9 +12,9 @@ download.mc(
 )
 }
 \arguments{
-\item{match}{Path to the match csv file}
+\item{match}{Path to the master match csv file}
 
-\item{countrydata}{Path to the countrydata csv file
+\item{countrydata}{Path to the master countrydata csv file
 
 This updates the Match Country files in the library to their current versions. It will overwrite
 the existing files, so this should be used with care if reproducability of older analyses is
