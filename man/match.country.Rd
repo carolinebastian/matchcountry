@@ -4,15 +4,7 @@
 \alias{match.country}
 \title{Match country}
 \usage{
-match.country(
-  country,
-  output = "iso",
-  language = "english",
-  match = read.csv(system.file("extdata", "match.csv", package = "matchcountry"),
-    na.strings = "", stringsAsFactors = FALSE),
-  countrydata = read.csv(system.file("extdata", "countrydata.csv", package =
-    "matchcountry"), na.strings = "", stringsAsFactors = FALSE)
-)
+match.country(country, output = "iso", language = "english")
 }
 \arguments{
 \item{country}{A vector of country names or ISO 3 digit alpha codes}

@@ -28,37 +28,39 @@
 #' 
 #' @export
 
-match.country <- function(country, output = "iso", language = "english",
-                          match = read.csv(system.file("extdata", "match.csv", package = "matchcountry"), 
-                                           na.strings = "", stringsAsFactors = FALSE),
-                          countrydata = read.csv(system.file("extdata", "countrydata.csv", package = "matchcountry"),
-                                                 na.strings = "", stringsAsFactors = FALSE)) {
-  removepunctuation <- function(input) {
-    replace <- c("&" = "AND", "SAINT" = "ST", "ISDS" = "ISLANDS", "REPUBLIC OF" = "")
+match.country <- function(country, output = "iso", language = "english") {
+  suppressWarnings({
+    match <- get("match", .mc)
+    countrydata <- get("countrydata", .mc)
     
-    for(a in 1:length(replace)) input <- gsub(names(replace)[a], replace[a], toupper(input))
+    removepunctuation <- function(input) {
+      replace <- c("&" = "AND", "SAINT" = "ST", "ISDS" = "ISLANDS", "REPUBLIC OF" = "")
+      
+      input <- gsub("[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz]", "", input)
+      
+      for(a in 1:length(replace)) input <- gsub(names(replace)[a], replace[a], toupper(input))
+      
+      input
+    }
     
-    gsub("[^ABCDEFGHIJKLMNOPQRSTUVWXYZ]", "", input)
-  }
-
-  m1 <- match
-  
-  if(!is.null(language)) {
-    m1 <- m1[toupper(match$language) == toupper(language),]
-  }
-  
-  m1$match <- removepunctuation(m1$name)
-  m1 <- m1[!duplicated(m1$match),]
-  
-  row.names(m1) <- m1$match
-  
-  isos <- m1[removepunctuation(country),]
-  
-  if(output != "iso") {
-    m2 <- countrydata[c("iso", output)]
-    row.names(m2) <- m2$iso
-    isos[[output]] <- m2[isos$iso, output]
-  }
-  
+    m1 <- match
+    
+    if(!is.null(language)) {
+      m1 <- m1[toupper(match$language) == toupper(language),]
+    }
+    
+    m1$match <- removepunctuation(m1$name)
+    m1 <- m1[!duplicated(m1$match),]
+    
+    row.names(m1) <- m1$match
+    
+    isos <- m1[removepunctuation(country),]
+    
+    if(output != "iso") {
+      m2 <- countrydata[!is.na(countrydata[[output]]), c("iso", output)]
+      row.names(m2) <- m2$iso
+      isos[[output]] <- ifelse(is.na(isos$iso), NA, m2[isos$iso, output])
+    }
+  })
   return(isos[[output]])
 }
