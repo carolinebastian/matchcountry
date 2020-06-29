@@ -15,7 +15,9 @@ read.mc <- function(match = read.csv(system.file("extdata", "match.csv", package
                                      na.strings = "", stringsAsFactors = FALSE, encoding = "UTF-8"),
                     countrydata = read.csv(system.file("extdata", "countrydata.csv", package = "matchcountry"),
                                            na.strings = "", stringsAsFactors = FALSE, encoding = "UTF-8")) {
-  
+  tryCatch(.mc, error = function(e) {
+    .mc <<- new.env(parent = emptyenv())
+  })
   assign("match", match, .mc)
   assign("countrydata", countrydata, .mc)
   
