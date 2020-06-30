@@ -14,14 +14,8 @@
 download.mc <- function(match = "https://raw.githubusercontent.com/philbastian/matchcountry/master/inst/extdata/match.csv", 
                         countrydata = "https://raw.githubusercontent.com/philbastian/matchcountry/master/inst/extdata/countrydata.csv") {
   
-  i <- readLines(ii <- url(match, encoding = "UTF-8"), encoding = "UTF-8", warn = FALSE) 
-  j <- readLines(jj <- url(countrydata, encoding = "UTF-8"), encoding = "UTF-8", warn = FALSE)
-  
-  close(ii)
-  close(jj)
-  
-  writeLines(i, system.file("extdata", "match.csv", package = "matchcountry"))
-  writeLines(j, system.file("extdata", "countrydata.csv", package = "matchcountry"))
+  download.file(match, system.file("extdata", "match.csv", package = "matchcountry"), quiet = TRUE, mode = "wb")
+  download.file(countrydata, system.file("extdata", "countrydata.csv", package = "matchcountry"), quiet = TRUE, mode = "wb")
   
   read.mc()
 }
