@@ -2,5 +2,5 @@
 
 .onLoad <- function(libname, pkgname) {
   .mc <<- new.env(parent = emptyenv())
-  read.mc()
+  tryCatch(download.mc(), error = function(e) read.mc())
 }
