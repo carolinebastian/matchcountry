@@ -79,9 +79,10 @@ match.country <- function(country, output = "iso", language = "english") {
     
     if(output != "iso") {
       output_a <- output
-      if(output %in% c("imf.official", "imf")) output_a <- "imf.advem"
-      if(output %in% "hdi") output_a <- "hdi"
-      
+      if(output %in% "country") output_a <- "english"
+      if(output %in% c("imf.official", "imf", "advem")) output_a <- "imf.advem"
+      if(output %in% "hdi") output_a <- "undp.hdi"
+            
       m2 <- countrydata[!is.na(countrydata[[output_a]]), c("iso", output_a)]
       row.names(m2) <- m2$iso
       names(m2)[2] <- output
