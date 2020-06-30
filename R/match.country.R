@@ -40,7 +40,7 @@ match.country <- function(country, output = "iso", language = "english") {
       replace <- c("&" = "AND", "SAINT" = "ST", "ISDS" = "ISLANDS", "REPUBLIC OF" = "")
 
       tryCatch({
-        input <- gsub("\ug2|\uc1|\ue0|\uc0|\ue2|\uc2|\ue4|\uc4|\ue3|\uc3|\ue5|\uc5", "a", input)
+        input <- gsub("\ue1|\uc1|\ue0|\uc0|\ue2|\uc2|\ue4|\uc4|\ue3|\uc3|\ue5|\uc5", "a", input)
         input <- gsub("\ue7|\uc7", "c", input)
         input <- gsub("\ue9|\uc9|\ue8|\uc8|\uea|\uca|\ueb|\ucb", "e", input)
         input <- gsub("\ued|\ucd|\uec|\ucc|\uee|\uce|\uef|\ucf", "i", input)
@@ -59,9 +59,16 @@ match.country <- function(country, output = "iso", language = "english") {
     
     m1 <- match
     
-    if(!is.null(language)) {
+    if(!is.null(language)) if(language == "iso") {
+      m1 <- data.frame(language = "iso", iso = countrydata$iso, name = unlist(countrydata[grep("^iso", names(countrydata))]))
+      m1 <- m1[!is.na(m1$name),]
+      m1 <- rbind(m1, language = "iso", iso = "GBR", name = "UK")
+    } else {
       m1 <- m1[toupper(match$language) == toupper(language),]
-    }
+    } 
+    
+    
+    
     
     m1$match <- removepunctuation(m1$name)
     m1 <- m1[!duplicated(m1$match),]
@@ -71,8 +78,13 @@ match.country <- function(country, output = "iso", language = "english") {
     isos <- m1[removepunctuation(country),]
     
     if(output != "iso") {
-      m2 <- countrydata[!is.na(countrydata[[output]]), c("iso", output)]
+      output_a <- output
+      if(output %in% c("imf.official", "imf")) output_a <- "imf.advem"
+      if(output %in% "hdi") output_a <- "hdi"
+      
+      m2 <- countrydata[!is.na(countrydata[[output_a]]), c("iso", output_a)]
       row.names(m2) <- m2$iso
+      names(m2)[2] <- output
       isos[[output]] <- ifelse(is.na(isos$iso), NA, m2[isos$iso, output])
     }
   })

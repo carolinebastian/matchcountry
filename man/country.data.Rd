@@ -4,22 +4,14 @@
 \alias{country.data}
 \title{Get Country Data}
 \usage{
-country.data(
-  columns = NULL,
-  countries = NULL,
-  list = FALSE,
-  countrydata = read.csv(system.file("extdata", "countrydata.csv", package =
-    "matchcountry"), na.strings = "", stringsAsFactors = FALSE)
-)
+country.data(columns = NULL, countries = NULL, list = FALSE)
 }
 \arguments{
 \item{columns}{Columns to return (NULL returns all)}
 
 \item{countries}{Which countries to return (list of ISO codes)}
 
-\item{list}{Return a vector with all possible columns?}
-
-\item{countrydata}{The countrydata table
+\item{list}{Return a vector with all possible columns?
 
 This file provides data on countries, updated regularly. If list = TRUE,
 other parameters will be overridden and it will return a list of columns.

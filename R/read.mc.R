@@ -18,6 +18,10 @@ read.mc <- function(match = read.csv(system.file("extdata", "match.csv", package
   tryCatch(.mc, error = function(e) {
     .mc <<- new.env(parent = emptyenv())
   })
+  
+  names(countrydata)[1] <- "iso"
+  names(match)[1] <- "language"
+  
   assign("match", match, .mc)
   assign("countrydata", countrydata, .mc)
   

@@ -3,7 +3,6 @@
 #' @param columns Columns to return (NULL returns all)
 #' @param countries Which countries to return (list of ISO codes)
 #' @param list Return a vector with all possible columns?
-#' @param countrydata The countrydata table 
 #'
 #' This file provides data on countries, updated regularly. If list = TRUE,
 #' other parameters will be overridden and it will return a list of columns.
@@ -20,15 +19,20 @@
 #' 
 #' @export
 
-country.data <- function(columns = NULL, countries = NULL, list = FALSE, 
-                         countrydata = read.csv(system.file("extdata", "countrydata.csv", package = "matchcountry"),
-                                                na.strings = "", stringsAsFactors = FALSE)) {
+country.data <- function(columns = NULL, countries = NULL, list = FALSE) {
+  countrydata <- tryCatch(get("countrydata", .mc), error = function(e) {
+    read.mc()
+    get("countrydata", .mc)
+  })
+  
   if(list) {
     return(names(countrydata))
   } else {
     if(is.null(countries)) countries <- countrydata$iso
     if(is.null(columns)) columns <- names(countrydata)
     
-    return(countrydata[countrydata$iso %in% countries, columns]) 
+    row.names(countrydata) <- countrydata$iso
+    
+    return(countrydata[countries, columns]) 
   }
 }
