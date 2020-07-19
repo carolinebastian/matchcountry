@@ -76,7 +76,7 @@ match.country <- function(country, output = "iso", language = "english") {
     row.names(m1) <- m1$match
     
     isos <- data.frame(m1[removepunctuation(country), ], checkmatch = removepunctuation(country), stringsAsFactors = FALSE)
-    isos[isos$match != isos$checkmatch,] <- NA
+    isos[ifelse(is.na(isos$match) | is.na(isos$checkmatch), TRUE, isos$match != isos$checkmatch), ] <- NA
     
     if(output != "iso") {
       output_a <- output
