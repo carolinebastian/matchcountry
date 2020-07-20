@@ -67,28 +67,34 @@ match.country <- function(country, output = "iso", language = "english") {
       m1 <- m1[toupper(match$language) == toupper(language),]
     } 
     
-    
-    
-    
     m1$match <- removepunctuation(m1$name)
     m1 <- m1[!duplicated(m1$match),]
     
     row.names(m1) <- m1$match
     
-    isos <- data.frame(m1[removepunctuation(country), ], checkmatch = removepunctuation(country), stringsAsFactors = FALSE)
-    isos[ifelse(is.na(isos$match) | is.na(isos$checkmatch), TRUE, isos$match != isos$checkmatch), ] <- NA
-    
-    if(output != "iso") {
+    rpc <- removepunctuation(country)
+    isos <- m1[rpc, ]
+    isos$iso[isos$match != rpc] <- NA
+        
+    if(length(output) > 1 | output[1] != "iso") {
       output_a <- output
-      if(output %in% "country") output_a <- "english"
-      if(output %in% c("imf.official", "imf", "advem")) output_a <- "imf.advem"
-      if(output %in% "hdi") output_a <- "undp.hdi"
-            
-      m2 <- countrydata[!is.na(countrydata[[output_a]]), c("iso", output_a)]
-      row.names(m2) <- m2$iso
-      names(m2)[2] <- output
-      isos[[output]] <- ifelse(is.na(isos$iso), NA, m2[isos$iso, output])
+      output_a[output_a %in% "country"] <- "english"
+      output_a[output_a %in% c("imf.official", "imf", "advem")] <- "imf.advem"
+      output_a[output_a %in% "hdi"] <- "undp.hdi"
+      
+      m2 <- countrydata[c("iso", output_a)]
+      row.names(m2) <- m2[[1]]
+      names(m2)[2:length(m2)] <- output
+      m2[[1]] <- NULL
+      
+      isos$iso[is.na(isos$iso)] <- "Missing"
+      
+      isos[output] <- m2[isos$iso,] #ifelse(is.na(isos[[1]]), NA, m2[isos$iso, output])
+      row.names(isos) <- NULL
     }
   })
-  return(isos[[output]])
+  
+  if(length(output) == 1) {
+    return(isos[[output]])
+  } else return(isos[output])
 }
