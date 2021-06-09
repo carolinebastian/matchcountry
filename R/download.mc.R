@@ -11,8 +11,8 @@
 #' download.mc()
 #' 
 #' @export
-download.mc <- function(match = "https://raw.githubusercontent.com/philbastian/matchcountry/master/inst/extdata/match.csv", 
-                        countrydata = "https://raw.githubusercontent.com/philbastian/matchcountry/master/inst/extdata/countrydata.csv") {
+download.mc <- function(match = "https://raw.githubusercontent.com/carolinebastian/matchcountry/master/inst/extdata/match.csv", 
+                        countrydata = "https://raw.githubusercontent.com/carolinebastian/matchcountry/master/inst/extdata/countrydata.csv") {
   
   download.file(match, system.file("extdata", "match.csv", package = "matchcountry"), quiet = TRUE, mode = "wb")
   download.file(countrydata, system.file("extdata", "countrydata.csv", package = "matchcountry"), quiet = TRUE, mode = "wb")
