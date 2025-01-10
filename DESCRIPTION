@@ -5,7 +5,7 @@ Authors@R: person("Caroline", "Bastian", email = "pbastian@stern.nyu.edu",
     role = c("aut", "cre"), comment = "Senior Research Scholar, NYU Stern")
 Description: Utility to simplify country name matching.
 License: MIT
-URL: https://www.github.com/philbastian/matchcountry
+URL: https://www.github.com/carolinebastian/matchcountry
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
