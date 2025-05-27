@@ -39,6 +39,7 @@ match.country <- function(country, output = "iso", language = "english") {
     removepunctuation <- function(input) {
       replace <- c("&" = "AND", "SAINT" = "ST", "ISDS" = "ISLANDS", "REPUBLIC OF" = "")
 
+      # Replace accent marks with English letters
       tryCatch({
         input <- gsub("\ue1|\uc1|\ue0|\uc0|\ue2|\uc2|\ue4|\uc4|\ue3|\uc3|\ue5|\uc5", "a", input)
         input <- gsub("\ue7|\uc7", "c", input)
