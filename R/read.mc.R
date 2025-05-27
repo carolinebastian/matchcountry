@@ -21,9 +21,11 @@ read.mc <- function(match = read.csv(system.file("extdata", "match.csv", package
   
   names(countrydata)[1] <- "iso"
   names(match)[1] <- "language"
-  
-  for(a in names(match)) Encoding(match[[a]]) <- "UTF-8"
-  for(a in names(countrydata)[sapply(countrydata, is.character)]) Encoding(countrydata[[a]]) <- "UTF-8"
+
+  tryCatch({
+    for(a in names(match)) Encoding(match[[a]]) <- "UTF-8"
+    for(a in names(countrydata)[sapply(countrydata, is.character)]) Encoding(countrydata[[a]]) <- "UTF-8"
+  }, error = function(e) NULL)
   
   assign("match", match, .mc)
   assign("countrydata", countrydata, .mc)
