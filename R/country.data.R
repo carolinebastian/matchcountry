@@ -32,7 +32,6 @@ country.data <- function(columns = NULL, countries = NULL, list = FALSE) {
     if(is.null(columns)) columns <- names(countrydata)
     
     row.names(countrydata) <- countrydata$iso
-    
     return(countrydata[countries, columns]) 
   }
 }
