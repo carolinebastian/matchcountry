@@ -5,10 +5,10 @@
 \title{Download the MatchCountry tables from Github}
 \usage{
 download.mc(
- 
-    match = "https://raw.githubusercontent.com/philbastian/matchcountry/master/inst/extdata/match.csv",
- 
-    countrydata = "https://raw.githubusercontent.com/philbastian/matchcountry/master/inst/extdata/countrydata.csv"
+  match =
+    "https://raw.githubusercontent.com/carolinebastian/matchcountry/master/inst/extdata/match.csv",
+  countrydata =
+    "https://raw.githubusercontent.com/carolinebastian/matchcountry/master/inst/extdata/countrydata.csv"
 )
 }
 \arguments{
