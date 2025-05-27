@@ -1,7 +1,7 @@
 Package: matchcountry
 Title: Match Country
-Version: 0.0.1.1000
-Authors@R: person("Caroline", "Bastian", email = "pbastian@stern.nyu.edu", 
+Version: 0.0.1.2000
+Authors@R: person("Caroline", "Bastian", email = "cbastian@stern.nyu.edu", 
     role = c("aut", "cre"), comment = "Senior Research Scholar, NYU Stern")
 Description: Utility to simplify country name matching.
 License: MIT
