@@ -11,11 +11,23 @@
 #' download.mc()
 #' 
 #' @export
-download.mc <- function(match = "https://raw.githubusercontent.com/carolinebastian/matchcountry/master/inst/extdata/match.csv", 
-                        countrydata = "https://raw.githubusercontent.com/carolinebastian/matchcountry/master/inst/extdata/countrydata.csv") {
+download.mc <- function(
+    match = "https://raw.githubusercontent.com/carolinebastian/matchcountry/master/inst/extdata/match.csv", 
+    countrydata = "https://raw.githubusercontent.com/carolinebastian/matchcountry/master/inst/extdata/countrydata.csv") {
   
-  download.file(match, system.file("extdata", "match.csv", package = "matchcountry"), quiet = TRUE, mode = "wb")
-  download.file(countrydata, system.file("extdata", "countrydata.csv", package = "matchcountry"), quiet = TRUE, mode = "wb")
+  download.file(match, mm <- tempfile(), quiet = TRUE, mode = "wb")
+  download.file(countrydata, cc <- tempfile(), quiet = TRUE, mode = "wb")
+  
+  if(file.info(mm)$size > 100) {
+    file.copy(mm, system.file("extdata", "match.csv", package = "matchcountry"),
+              overwrite = TRUE, copy.date = TRUE)
+  }
+  
+  if(file.info(cc)$size > 100) {
+    file.copy(cc, system.file("extdata", "countrydata.csv", 
+                              package = "matchcountry"),
+              overwrite = TRUE, copy.date = TRUE)
+  }
   
   read.mc()
 }

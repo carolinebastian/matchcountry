@@ -2,6 +2,12 @@
 
 .onLoad <- function(libname, pkgname) {
   .mc <<- new.env(parent = emptyenv())
-  tryCatch(download.mc(), error = function(e) NULL)
-  read.mc()
+  ty <- tryCatch(download.mc(), 
+                 error = function(e) {
+                   tryCatch(download.mc(), error = function(e) {
+                     NULL
+                   })
+                 })
+  
+  if(is.null(ty)) read.mc()
 }

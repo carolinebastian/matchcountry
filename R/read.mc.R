@@ -11,10 +11,34 @@
 #' 
 #' @export
 
-read.mc <- function(match = read.csv(system.file("extdata", "match.csv", package = "matchcountry"), 
-                                     na.strings = "", stringsAsFactors = FALSE, encoding = "UTF-8"),
-                    countrydata = read.csv(system.file("extdata", "countrydata.csv", package = "matchcountry"),
-                                           na.strings = "", stringsAsFactors = FALSE, encoding = "UTF-8")) {
+read.mc <- function(
+    match =
+      tryCatch(read.csv(system.file("extdata", "match.csv", 
+                                    package = "matchcountry"), 
+                        na.strings = "", stringsAsFactors = FALSE, 
+                        encoding = "UTF-8"), 
+               error = function(e) {
+                 read.csv(paste0("https://raw.githubusercontent.com/",
+                                 "carolinebastian/matchcountry/refs/",
+                                 "heads/main/inst/extdata/match.csv"),
+                          na.strings = "", stringsAsFactors = FALSE,
+                          encoding = "UTF-8")
+               }),
+    
+    countrydata =
+      tryCatch(read.csv(system.file("extdata", "countrydata.csv", 
+                                    package = "matchcountry"),
+                        na.strings = "", stringsAsFactors = FALSE, 
+                        encoding = "UTF-8"),
+               error = function(e) {
+                 read.csv(paste0("https://raw.githubusercontent.com/",
+                                 "carolinebastian/matchcountry/refs/",
+                                 "heads/main/inst/extdata/countrydata.csv"),
+                          na.strings = "", stringsAsFactors = FALSE,
+                          encoding = "UTF-8")
+               })
+    ) {
+  
   tryCatch(.mc, error = function(e) {
     .mc <<- new.env(parent = emptyenv())
   })
